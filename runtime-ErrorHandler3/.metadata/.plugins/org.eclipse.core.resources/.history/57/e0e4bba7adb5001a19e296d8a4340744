@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domijProject:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:domijProject="http://www.eclipse.org/dsl/domijProject" id="Model1" name="MyModel">
+  <processing id="tshirt" name="T-shirt">
+    <elements xsi:type="domijProject:ProcessStep" id="ps1" name="Start" outRelations="//@processing.0/@relationships.0" type="START"/>
+    <elements xsi:type="domijProject:ProcessStep" id="ps2" name="Material picking" inRelations="//@processing.0/@relationships.0" outRelations="//@processing.0/@relationships.1" monitoring="//@processing.0/@inspections.0"/>
+    <elements xsi:type="domijProject:ProcessStep" id="psend" name="End" inRelations="//@processing.0/@relationships.11" type="END"/>
+    <elements xsi:type="domijProject:Gate" id="gate1" name="Par1" inRelations="//@processing.0/@relationships.2" outRelations="//@processing.0/@relationships.3 //@processing.0/@relationships.6" type="PARALLELISM"/>
+    <elements xsi:type="domijProject:ProcessStep" id="ps4" name="Collar Stitching" inRelations="//@processing.0/@relationships.3" outRelations="//@processing.0/@relationships.4"/>
+    <elements xsi:type="domijProject:ProcessStep" id="ps5" name="Buttons Stitching" inRelations="//@processing.0/@relationships.4" outRelations="//@processing.0/@relationships.5"/>
+    <elements xsi:type="domijProject:ProcessStep" id="ps6" name="Seam Stitiching" inRelations="//@processing.0/@relationships.5 //@processing.0/@relationships.12" outRelations="//@processing.0/@relationships.8">
+      <errors name="Wrongly Stitched" effect="" globalerrorhandler="//@processing.0/@handlersOfManufacture.0" severityOfError="7"/>
+    </elements>
+    <elements xsi:type="domijProject:ProcessStep" id="ps7" name="Sleeves Stitching" inRelations="//@processing.0/@relationships.6" outRelations="//@processing.0/@relationships.7 //@processing.0/@relationships.12">
+      <errors/>
+    </elements>
+    <elements xsi:type="domijProject:Gate" id="gate2" name="Par2" inRelations="//@processing.0/@relationships.7 //@processing.0/@relationships.8" outRelations="//@processing.0/@relationships.9" type="PARALLELISM"/>
+    <elements xsi:type="domijProject:ProcessStep" id="ps8" name="Printing" inRelations="//@processing.0/@relationships.9 //@processing.0/@relationships.14" outRelations="//@processing.0/@relationships.10">
+      <errors name="Ink missing" errorLink="//@processing.0/@elements.11" severityOfError="5"/>
+    </elements>
+    <elements xsi:type="domijProject:ProcessStep" id="ps9" name="Packaging" inRelations="//@processing.0/@relationships.10" outRelations="//@processing.0/@relationships.11"/>
+    <elements xsi:type="domijProject:ProcessStep" id="ps10" name="Turn off Printer" outRelations="//@processing.0/@relationships.15" notation="CORRECTION"/>
+    <elements xsi:type="domijProject:ProcessStep" id="ps11" name="Refill Printer" inRelations="//@processing.0/@relationships.15" outRelations="//@processing.0/@relationships.13" notation="CORRECTION"/>
+    <elements xsi:type="domijProject:ProcessStep" id="ps12" name="Turn on Printer" inRelations="//@processing.0/@relationships.13" outRelations="//@processing.0/@relationships.14" notation="CORRECTION"/>
+    <elements xsi:type="domijProject:ProcessStep" name="Material Cutting" inRelations="//@processing.0/@relationships.1" outRelations="//@processing.0/@relationships.2"/>
+    <relationships id="r1" name="toPicking" target="//@processing.0/@elements.1" source="//@processing.0/@elements.0"/>
+    <relationships id="r2" name="toCutting" target="//@processing.0/@elements.14" source="//@processing.0/@elements.1"/>
+    <relationships id="r3" name="toPar1" target="//@processing.0/@elements.3" source="//@processing.0/@elements.14"/>
+    <relationships id="r4" name="toCollar" condition="collar" target="//@processing.0/@elements.4" source="//@processing.0/@elements.3"/>
+    <relationships id="r5" name="toButtons" target="//@processing.0/@elements.5" source="//@processing.0/@elements.4"/>
+    <relationships id="r6" name="toSeam" target="//@processing.0/@elements.6" source="//@processing.0/@elements.5"/>
+    <relationships id="r7" name="toSleeves" condition="sleeves" target="//@processing.0/@elements.7" source="//@processing.0/@elements.3"/>
+    <relationships id="r8" name="toPar22" target="//@processing.0/@elements.8" source="//@processing.0/@elements.7"/>
+    <relationships id="r9" name="toGate21" target="//@processing.0/@elements.8" source="//@processing.0/@elements.6"/>
+    <relationships id="r10" name="toPrinting" target="//@processing.0/@elements.9" source="//@processing.0/@elements.8"/>
+    <relationships id="r11" name="toPackaging" target="//@processing.0/@elements.10" source="//@processing.0/@elements.9"/>
+    <relationships id="r12" name="toEnd" target="//@processing.0/@elements.2" source="//@processing.0/@elements.10"/>
+    <relationships id="r13" name="collabSeam" target="//@processing.0/@elements.6" source="//@processing.0/@elements.7" type="COLLABORATION"/>
+    <relationships id="r15" name="toTurnon" target="//@processing.0/@elements.13" source="//@processing.0/@elements.12" notation="CORRECTION"/>
+    <relationships id="r16" name="toPrinting2" target="//@processing.0/@elements.9" source="//@processing.0/@elements.13" notation="CORRECTION"/>
+    <relationships name="toRefill" target="//@processing.0/@elements.12" source="//@processing.0/@elements.11" notation="CORRECTION"/>
+    <inspections id="mmm" name="Check Dimensions" acceptanceCriteria="+- 30 cm" completionCriteria="width = 20 cm"/>
+    <inspections name="Inspection Name" acceptanceCriteria="Acceptance Criteria" completionCriteria="Completion Criteria"/>
+    <handlersOfManufacture id="discardShirt" name="Discard shirt" error="//@processing.0/@elements.6/@errors.0" cause="shirtStichedWrongly">
+      <elements xsi:type="domijProject:ProcessStep" id="ges1" name="Start Handler" type="START"/>
+      <elements xsi:type="domijProject:ProcessStep" id="ges2" name="Discard"/>
+      <elements xsi:type="domijProject:ProcessStep" id="ges3" name="End Discard" type="END"/>
+      <relationships id="ger1" name="toDiscard"/>
+      <relationships id="ger2" name="toEnd2"/>
+    </handlersOfManufacture>
+  </processing>
+</domijProject:Model>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated domijProject -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="domijProject.presentation.DomijProjectModelWizardID"
+            name="%_UI_DomijProjectModelWizard_label"
+            class="domijProject.presentation.DomijProjectModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/DomijProjectModelFile.gif">
+         <description>%_UI_DomijProjectModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated domijProject -->
+      <editor
+            id="domijProject.presentation.DomijProjectEditorID"
+            name="%_UI_DomijProjectEditor_label"
+            icon="icons/full/obj16/DomijProjectModelFile.gif"
+            extensions="domijproject"
+            class="domijProject.presentation.DomijProjectEditor"
+            contributorClass="domijProject.presentation.DomijProjectActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/description/tool/1.1.0" name="My" version="7.0.0">
+  <ownedViewpoints name="domijProject" modelFileExtension="domijProject">
+    <ownedRepresentations xsi:type="description:DiagramDescription" name="Error Hanlder for Manufacture" initialisation="true" showOnStartup="true" domainClass="domijProject.Model">
+      <metamodel href="http://www.eclipse.org/dsl/domijProject#/"/>
+      <defaultLayer name="Default">
+        <nodeMappings name="Gate" domainClass="domijProject.Gate">
+          <style xsi:type="style:LozengeNodeDescription" labelSize="22" labelFormat="bold" showIcon="false" labelExpression="+" sizeComputationExpression="4" labelPosition="node" resizeKind="NSEW">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='blue']"/>
+          </style>
+        </nodeMappings>
+        <nodeMappings name="ProcessStep" semanticCandidatesExpression="ocl:self.processing->selectByType(Manufacture).elements->selectByType(ProcessStep)" domainClass="domijProject.ProcessStep">
+          <borderedNodeMappings name="Error" semanticCandidatesExpression="feature:name" domainClass="domijProject.Error">
+            <style xsi:type="style:SquareDescription" showIcon="false" labelPosition="node" resizeKind="NSEW" width="5" height="5">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='red']"/>
+            </style>
+          </borderedNodeMappings>
+          <style xsi:type="style:SquareDescription" showIcon="false" labelPosition="node" resizeKind="NSEW" width="10" height="5">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
+          </style>
+          <conditionnalStyles predicateExpression="ocl:self.type = EStepType::START">
+            <style xsi:type="style:EllipseNodeDescription" borderSizeComputationExpression="3" showIcon="false" labelExpression="" resizeKind="NSEW" horizontalDiameterComputationExpression="5" verticalDiameterComputationExpression="5">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
+            </style>
+          </conditionnalStyles>
+          <conditionnalStyles predicateExpression="ocl:self.type = EStepType::END">
+            <style xsi:type="style:EllipseNodeDescription" borderSizeComputationExpression="3" showIcon="false" labelExpression="" resizeKind="NSEW" horizontalDiameterComputationExpression="5" verticalDiameterComputationExpression="5">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </style>
+          </conditionnalStyles>
+        </nodeMappings>
+        <nodeMappings name="Manufacture" semanticCandidatesExpression="feature:processing" domainClass="domijProject.Manufacture">
+          <style xsi:type="style:EllipseNodeDescription" resizeKind="NSEW">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_chocolate']"/>
+          </style>
+        </nodeMappings>
+        <edgeMappings name="Relationship" semanticCandidatesExpression="ocl:self.processing.relationships" sourceMapping="//@ownedViewpoints[name='domijProject']/@ownedRepresentations[name='Error%20Hanlder%20for%20Manufacture']/@defaultLayer/@nodeMappings[name='Gate'] //@ownedViewpoints[name='domijProject']/@ownedRepresentations[name='Error%20Hanlder%20for%20Manufacture']/@defaultLayer/@nodeMappings[name='ProcessStep']" targetMapping="//@ownedViewpoints[name='domijProject']/@ownedRepresentations[name='Error%20Hanlder%20for%20Manufacture']/@defaultLayer/@nodeMappings[name='Gate'] //@ownedViewpoints[name='domijProject']/@ownedRepresentations[name='Error%20Hanlder%20for%20Manufacture']/@defaultLayer/@nodeMappings[name='ProcessStep']" targetFinderExpression="feature:target" sourceFinderExpression="feature:source" domainClass="domijProject.Relationship" useDomainElement="true">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription showIcon="false" labelExpression="feature:condition">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+          <conditionnalStyles predicateExpression="ocl:self.type = ERelationshipType::COLLABORATION">
+            <style lineStyle="dash" sizeComputationExpression="2">
+              <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+              <centerLabelStyleDescription>
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              </centerLabelStyleDescription>
+            </style>
+          </conditionnalStyles>
+        </edgeMappings>
+        <toolSections>
+          <ownedTools xsi:type="tool:NodeCreationDescription" documentation="Creation of new process step&#xD;&#xA;" name="CreateStep" nodeMappings="//@ownedViewpoints[name='domijProject']/@ownedRepresentations[name='Error%20Hanlder%20for%20Manufacture']/@defaultLayer/@nodeMappings[name='ProcessStep']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool:CreateInstance" typeName="domijProject.ProcessStep" referenceName="theNameOfTheVariable"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="Gate" nodeMappings="//@ownedViewpoints[name='domijProject']/@ownedRepresentations[name='Error%20Hanlder%20for%20Manufacture']/@defaultLayer/@nodeMappings[name='Gate']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool:CreateInstance" typeName="domijProject.Gate" referenceName="elements"/>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
+      </defaultLayer>
+      <additionalLayers name="ErrorHandling" reusedMappings="//@ownedViewpoints[name='domijProject']/@ownedRepresentations[name='Error%20Hanlder%20for%20Manufacture']/@defaultLayer/@nodeMappings[name='ProcessStep']">
+        <nodeMappings name="Inspection" semanticCandidatesExpression="ocl:self.processing->selectByType(Manufacture).elements->selectByType(ProcessStep).monitoring" domainClass="domijProject.Inspection">
+          <style xsi:type="style:SquareDescription" showIcon="false" labelPosition="node" resizeKind="NSEW" width="10" height="5">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_blue']"/>
+          </style>
+        </nodeMappings>
+        <nodeMappings name="Error" semanticCandidatesExpression="feature:eAllContents" domainClass="domijProject.Error">
+          <style xsi:type="style:SquareDescription" showIcon="false" labelPosition="node" resizeKind="NSEW" width="5" height="5">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='red']"/>
+          </style>
+        </nodeMappings>
+        <nodeMappings name="ProcessStep" semanticCandidatesExpression="ocl:self.processing->selectByType(Manufacture).elements->selectByType(ProcessStep)" domainClass="domijProject.ProcessStep">
+          <borderedNodeMappings name="Error" semanticCandidatesExpression="feature:errors" domainClass="domijProject.Error">
+            <style xsi:type="style:SquareDescription" showIcon="false" labelPosition="node" resizeKind="NSEW" width="5" height="5">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='red']"/>
+            </style>
+          </borderedNodeMappings>
+          <style xsi:type="style:SquareDescription" showIcon="false" labelPosition="node" resizeKind="NSEW" width="10" height="5">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
+          </style>
+          <conditionnalStyles predicateExpression="ocl:self.type = EStepType::START">
+            <style xsi:type="style:EllipseNodeDescription" borderSizeComputationExpression="3" showIcon="false" labelExpression="" resizeKind="NSEW" horizontalDiameterComputationExpression="5" verticalDiameterComputationExpression="5">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
+            </style>
+          </conditionnalStyles>
+          <conditionnalStyles predicateExpression="ocl:self.type = EStepType::END">
+            <style xsi:type="style:EllipseNodeDescription" borderSizeComputationExpression="3" showIcon="false" labelExpression="" resizeKind="NSEW" horizontalDiameterComputationExpression="5" verticalDiameterComputationExpression="5">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </style>
+          </conditionnalStyles>
+        </nodeMappings>
+        <edgeMappings name="linkHandler" sourceMapping="//@ownedViewpoints[name='domijProject']/@ownedRepresentations[name='Error%20Hanlder%20for%20Manufacture']/@additionalLayers[name='ErrorHandling']/@nodeMappings[name='Error']" targetMapping="//@ownedViewpoints[name='domijProject']/@ownedRepresentations[name='Error%20Hanlder%20for%20Manufacture']/@additionalLayers[name='ErrorHandling']/@containerMappings[name='ErrorHandler']" targetFinderExpression="feature:globalerrorhandler">
+          <style lineStyle="dash" sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='red']"/>
+            <centerLabelStyleDescription>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="errorLink" sourceMapping="//@ownedViewpoints[name='domijProject']/@ownedRepresentations[name='Error%20Hanlder%20for%20Manufacture']/@additionalLayers[name='ErrorHandling']/@nodeMappings[name='Error']" targetMapping="//@ownedViewpoints[name='domijProject']/@ownedRepresentations[name='Error%20Hanlder%20for%20Manufacture']/@defaultLayer/@nodeMappings[name='ProcessStep']" targetFinderExpression="feature:errorLink">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='red']"/>
+            <centerLabelStyleDescription>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="inspectionLink" sourceMapping="//@ownedViewpoints[name='domijProject']/@ownedRepresentations[name='Error%20Hanlder%20for%20Manufacture']/@additionalLayers[name='ErrorHandling']/@nodeMappings[name='ProcessStep']" targetMapping="//@ownedViewpoints[name='domijProject']/@ownedRepresentations[name='Error%20Hanlder%20for%20Manufacture']/@additionalLayers[name='ErrorHandling']/@nodeMappings[name='Inspection']" targetFinderExpression="feature:monitoring">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_blue']"/>
+            <centerLabelStyleDescription>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <containerMappings name="ErrorHandler" doubleClickDescription="//@ownedViewpoints[name='domijProject']/@ownedRepresentations[name='Error%20Hanlder%20for%20Manufacture']/@additionalLayers[name='ErrorHandling']/@toolSections.0/@ownedTools[name='DoubleClickk']" domainClass="domijProject.GlobalErrorHandler">
+          <subNodeMappings name="HandlerStep" semanticCandidatesExpression="ocl:self.elements->selectByType(ProcessStep)" domainClass="domijProject.ProcessStep">
+            <style xsi:type="style:SquareDescription" showIcon="false" labelPosition="node" resizeKind="NSEW" width="8" height="4">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
+            </style>
+            <conditionnalStyles predicateExpression="ocl:self.type = EStepType::START">
+              <style xsi:type="style:EllipseNodeDescription" borderSizeComputationExpression="3" showIcon="false" labelExpression="" resizeKind="NSEW" horizontalDiameterComputationExpression="3" verticalDiameterComputationExpression="3">
+                <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
+              </style>
+            </conditionnalStyles>
+            <conditionnalStyles predicateExpression="ocl:self.type = EStepType::END">
+              <style xsi:type="style:EllipseNodeDescription" borderSizeComputationExpression="3" showIcon="false" labelExpression="" resizeKind="NSEW" horizontalDiameterComputationExpression="3" verticalDiameterComputationExpression="3">
+                <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              </style>
+            </conditionnalStyles>
+          </subNodeMappings>
+          <subNodeMappings name="HandlerGate" semanticCandidatesExpression="ocl:self.elements->selectByType(ProcessStep)" domainClass="domijProject.Gate">
+            <style xsi:type="style:LozengeNodeDescription" labelSize="22" labelFormat="bold" showIcon="false" labelExpression="+" sizeComputationExpression="4" labelPosition="node" resizeKind="NSEW">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='blue']"/>
+            </style>
+          </subNodeMappings>
+          <style xsi:type="style:FlatContainerStyleDescription" backgroundStyle="GradientTopToBottom">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_gray']"/>
+          </style>
+        </containerMappings>
+        <toolSections>
+          <ownedTools xsi:type="tool:DoubleClickDescription" name="DoubleClickk" precondition="var:container" forceRefresh="true" mappings="//@ownedViewpoints[name='domijProject']/@ownedRepresentations[name='Error%20Hanlder%20for%20Manufacture']/@additionalLayers[name='ErrorHandling']/@containerMappings[name='ErrorHandler']">
+            <element name="element"/>
+            <elementView name="elementView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool:ChangeContext" browseExpression="var:element">
+                <subModelOperations xsi:type="tool:Navigation" createIfNotExistent="true" diagramDescription="//@ownedViewpoints[name='domijProject']/@ownedRepresentations[name='Error%20Hanlder%20for%20Manufacture']"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
+      </additionalLayers>
+    </ownedRepresentations>
+  </ownedViewpoints>
+</description:Group>

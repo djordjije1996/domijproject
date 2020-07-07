@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.dsl.domijProject/src" modelPluginID="org.eclipse.dsl.domijProject"
+    modelName="DomijProject" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>domijProject.ecore</foreignModel>
+  <genPackages prefix="DomijProject" disposableProviderFactory="true" ecorePackage="domijProject.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="domijProject.ecore#//EGateType">
+      <genEnumLiterals ecoreEnumLiteral="domijProject.ecore#//EGateType/DECISION"/>
+      <genEnumLiterals ecoreEnumLiteral="domijProject.ecore#//EGateType/PARALLELISM"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="domijProject.ecore#//ERelationshipType">
+      <genEnumLiterals ecoreEnumLiteral="domijProject.ecore#//ERelationshipType/FLOW"/>
+      <genEnumLiterals ecoreEnumLiteral="domijProject.ecore#//ERelationshipType/COLLABORATION"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="domijProject.ecore#//EStepType">
+      <genEnumLiterals ecoreEnumLiteral="domijProject.ecore#//EStepType/REGULAR"/>
+      <genEnumLiterals ecoreEnumLiteral="domijProject.ecore#//EStepType/END"/>
+      <genEnumLiterals ecoreEnumLiteral="domijProject.ecore#//EStepType/START"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="domijProject.ecore#//EInspectionType">
+      <genEnumLiterals ecoreEnumLiteral="domijProject.ecore#//EInspectionType/PRESTEP"/>
+      <genEnumLiterals ecoreEnumLiteral="domijProject.ecore#//EInspectionType/POSTSTEP"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="domijProject.ecore#//ENotation">
+      <genEnumLiterals ecoreEnumLiteral="domijProject.ecore#//ENotation/NONE"/>
+      <genEnumLiterals ecoreEnumLiteral="domijProject.ecore#//ENotation/CORRECTION"/>
+    </genEnums>
+    <genClasses ecoreClass="domijProject.ecore#//Model">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference domijProject.ecore#//Model/processing"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="domijProject.ecore#//Process">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference domijProject.ecore#//Process/elements"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference domijProject.ecore#//Process/relationships"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference domijProject.ecore#//Process/inspections"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="domijProject.ecore#//NamedConcept">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute domijProject.ecore#//NamedConcept/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute domijProject.ecore#//NamedConcept/name"/>
+    </genClasses>
+    <genClasses ecoreClass="domijProject.ecore#//Manufacture">
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference domijProject.ecore#//Manufacture/handlersOfManufacture"/>
+    </genClasses>
+    <genClasses ecoreClass="domijProject.ecore#//GlobalErrorHandler">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference domijProject.ecore#//GlobalErrorHandler/error"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute domijProject.ecore#//GlobalErrorHandler/cause"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference domijProject.ecore#//GlobalErrorHandler/handlers"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="domijProject.ecore#//ProcessElement">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference domijProject.ecore#//ProcessElement/inRelations"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference domijProject.ecore#//ProcessElement/outRelations"/>
+    </genClasses>
+    <genClasses ecoreClass="domijProject.ecore#//Relationship">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute domijProject.ecore#//Relationship/condition"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference domijProject.ecore#//Relationship/target"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference domijProject.ecore#//Relationship/source"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute domijProject.ecore#//Relationship/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute domijProject.ecore#//Relationship/notation"/>
+    </genClasses>
+    <genClasses ecoreClass="domijProject.ecore#//ProcessStep">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute domijProject.ecore#//ProcessStep/type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference domijProject.ecore#//ProcessStep/inProducts"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference domijProject.ecore#//ProcessStep/outProducts"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference domijProject.ecore#//ProcessStep/monitoring"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference domijProject.ecore#//ProcessStep/errors"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute domijProject.ecore#//ProcessStep/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute domijProject.ecore#//ProcessStep/capability"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute domijProject.ecore#//ProcessStep/notation"/>
+    </genClasses>
+    <genClasses ecoreClass="domijProject.ecore#//Gate">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute domijProject.ecore#//Gate/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute domijProject.ecore#//Gate/notation"/>
+    </genClasses>
+    <genClasses ecoreClass="domijProject.ecore#//Product"/>
+    <genClasses ecoreClass="domijProject.ecore#//Inspection">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute domijProject.ecore#//Inspection/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute domijProject.ecore#//Inspection/acceptanceCriteria"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute domijProject.ecore#//Inspection/completionCriteria"/>
+    </genClasses>
+    <genClasses ecoreClass="domijProject.ecore#//Error">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute domijProject.ecore#//Error/cause"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute domijProject.ecore#//Error/effect"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference domijProject.ecore#//Error/errorLink"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference domijProject.ecore#//Error/globalerrorhandler"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute domijProject.ecore#//Error/severityOfError"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

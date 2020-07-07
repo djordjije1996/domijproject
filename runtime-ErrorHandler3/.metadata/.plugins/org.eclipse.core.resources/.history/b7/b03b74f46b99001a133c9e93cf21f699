@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domijProject:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:domijProject="http://www.eclipse.org/dsl/domijProject">
+  <processing xsi:type="domijProject:Manufacture">
+    <elements xsi:type="domijProject:ProcessStep" name="Start" outRelations="//@processing.0/@relationships.0" type="START"/>
+    <elements xsi:type="domijProject:ProcessStep" name="Material picking" inRelations="//@processing.0/@relationships.0" outRelations="//@processing.0/@relationships.1"/>
+    <elements xsi:type="domijProject:ProcessStep" name="Material Cutting" inRelations="//@processing.0/@relationships.1" outRelations="//@processing.0/@relationships.2">
+      <monitoring id="" name="Check Dimensions" type="POSTSTEP"/>
+    </elements>
+    <elements xsi:type="domijProject:ProcessStep" name="End" inRelations="//@processing.0/@relationships.11" type="END"/>
+    <elements xsi:type="domijProject:Gate" name="Par1" inRelations="//@processing.0/@relationships.2" outRelations="//@processing.0/@relationships.3 //@processing.0/@relationships.6" type="PARALLELISM"/>
+    <elements xsi:type="domijProject:ProcessStep" name="Collar Stitching" inRelations="//@processing.0/@relationships.3" outRelations="//@processing.0/@relationships.4"/>
+    <elements xsi:type="domijProject:ProcessStep" name="Buttons Stitching" inRelations="//@processing.0/@relationships.4" outRelations="//@processing.0/@relationships.5"/>
+    <elements xsi:type="domijProject:ProcessStep" name="Seam Stitiching" inRelations="//@processing.0/@relationships.5 //@processing.0/@relationships.12" outRelations="//@processing.0/@relationships.8">
+      <errors name="Wrongly Stitched" effect="" globalerrorhandler="//@processing.1" severityOfError="7"/>
+    </elements>
+    <elements xsi:type="domijProject:ProcessStep" name="Sleeves Stitching" inRelations="//@processing.0/@relationships.6" outRelations="//@processing.0/@relationships.7 //@processing.0/@relationships.12"/>
+    <elements xsi:type="domijProject:Gate" name="Par2" inRelations="//@processing.0/@relationships.7 //@processing.0/@relationships.8" outRelations="//@processing.0/@relationships.9" type="PARALLELISM"/>
+    <elements xsi:type="domijProject:ProcessStep" name="Printing" inRelations="//@processing.0/@relationships.9 //@processing.0/@relationships.15" outRelations="//@processing.0/@relationships.10">
+      <errors name="Ink missing" errorLink="//@processing.0/@elements.12" severityOfError="5"/>
+    </elements>
+    <elements xsi:type="domijProject:ProcessStep" name="Packaging" inRelations="//@processing.0/@relationships.10" outRelations="//@processing.0/@relationships.11"/>
+    <elements xsi:type="domijProject:ProcessStep" name="Turn of Printer" outRelations="//@processing.0/@relationships.13"/>
+    <elements xsi:type="domijProject:ProcessStep" name="Refill Printer" inRelations="//@processing.0/@relationships.13" outRelations="//@processing.0/@relationships.14"/>
+    <elements xsi:type="domijProject:ProcessStep" name="Turn on Printer" inRelations="//@processing.0/@relationships.14" outRelations="//@processing.0/@relationships.15"/>
+    <relationships name="toPicking" target="//@processing.0/@elements.1" source="//@processing.0/@elements.0"/>
+    <relationships name="toCutting" target="//@processing.0/@elements.2" source="//@processing.0/@elements.1"/>
+    <relationships name="toPar1" target="//@processing.0/@elements.4" source="//@processing.0/@elements.2"/>
+    <relationships name="toCollar" condition="collar" target="//@processing.0/@elements.5" source="//@processing.0/@elements.4"/>
+    <relationships name="toButtons" target="//@processing.0/@elements.6" source="//@processing.0/@elements.5"/>
+    <relationships name="toSeam" target="//@processing.0/@elements.7" source="//@processing.0/@elements.6"/>
+    <relationships name="toSleeves" condition="sleeves" target="//@processing.0/@elements.8" source="//@processing.0/@elements.4"/>
+    <relationships name="toPar22" target="//@processing.0/@elements.9" source="//@processing.0/@elements.8"/>
+    <relationships name="toGate21" target="//@processing.0/@elements.9" source="//@processing.0/@elements.7"/>
+    <relationships name="toPrinting" target="//@processing.0/@elements.10" source="//@processing.0/@elements.9"/>
+    <relationships name="toPackaging" target="//@processing.0/@elements.11" source="//@processing.0/@elements.10"/>
+    <relationships name="toEnd" target="//@processing.0/@elements.3" source="//@processing.0/@elements.11"/>
+    <relationships name="collabSeam" target="//@processing.0/@elements.7" source="//@processing.0/@elements.8" type="COLLABORATION"/>
+    <relationships name="toRefill" target="//@processing.0/@elements.13" source="//@processing.0/@elements.12"/>
+    <relationships name="toTurnon" target="//@processing.0/@elements.14" source="//@processing.0/@elements.13"/>
+    <relationships name="toPrinting2" target="//@processing.0/@elements.10" source="//@processing.0/@elements.14"/>
+  </processing>
+  <processing xsi:type="domijProject:GlobalErrorHandler" id="discardShirt" name="Discard shirt" error="//@processing.0/@elements.7/@errors.0" cause="shirtStichedWrongly">
+    <elements xsi:type="domijProject:ProcessStep" name="Start Handler" outRelations="//@processing.1/@relationships.0" type="START"/>
+    <elements xsi:type="domijProject:ProcessStep" name="Discard" inRelations="//@processing.1/@relationships.0" outRelations="//@processing.1/@relationships.1"/>
+    <elements xsi:type="domijProject:ProcessStep" name="End Discard" inRelations="//@processing.1/@relationships.1" type="END"/>
+    <relationships name="toDiscard" target="//@processing.1/@elements.1" source="//@processing.1/@elements.0"/>
+    <relationships name="toEnd2" target="//@processing.1/@elements.2" source="//@processing.1/@elements.1"/>
+  </processing>
+</domijProject:Model>

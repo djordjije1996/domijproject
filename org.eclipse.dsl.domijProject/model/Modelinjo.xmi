@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ASCII"?>
+<domijProject:Model
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:domijProject="http://www.eclipse.org/dsl/domijProject"
+    xsi:schemaLocation="http://www.eclipse.org/dsl/domijProject domijProject.ecore">
+  <processing
+      xsi:type="domijProject:Manufacture">
+    <elements
+        xsi:type="domijProject:ProcessStep"
+        name="Heat the beat"/>
+  </processing>
+</domijProject:Model>

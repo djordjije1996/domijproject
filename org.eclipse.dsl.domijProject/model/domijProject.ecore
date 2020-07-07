@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="domijProject" nsURI="http://www.eclipse.org/dsl/domijProject"
+    nsPrefix="domijProject">
+  <eAnnotations source="http://www.eclipse.org/OCL/Import">
+    <details key="ecore" value="http://www.eclipse.org/emf/2002/Ecore#/"/>
+  </eAnnotations>
+  <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+    <details key="invocationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    <details key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+  </eAnnotations>
+  <eClassifiers xsi:type="ecore:EClass" name="Model" eSuperTypes="#//NamedConcept">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="mustHaveOneManufactureProcess"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="mustHaveOneManufactureProcess" value="&#xA;&#x9;&#x9;&#x9;self.processing->selectByType(Manufacture)->size() = 1"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="processing" upperBound="-1"
+        eType="#//Manufacture" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Process" abstract="true" eSuperTypes="#//NamedConcept">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="uniqunessOfStartStep mustHaveAtLeastOneStartStep mustHaveAtLeastOneEndStep relationsConnectingStepsFromSameProcess"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="uniqunessOfStartStep" value="&#xA;&#x9;&#x9;&#x9;self.elements->selectByType(ProcessStep)->forAll(ps1, ps2| &#xA;&#x9;&#x9;&#x9;&#x9;ps1.type = EStepType::START and ps2.type = EStepType::START implies ps1=ps2)"/>
+      <details key="mustHaveAtLeastOneStartStep" value="&#xA;&#x9;&#x9;&#x9;self.elements->selectByType(ProcessStep)->exists(ps| ps.type = EStepType::START)"/>
+      <details key="mustHaveAtLeastOneEndStep" value="&#xA;&#x9;&#x9;&#x9;self.elements->selectByType(ProcessStep)->exists(ps| ps.type = EStepType::END)"/>
+      <details key="relationsConnectingStepsFromSameProcess" value="&#xA;&#x9;&#x9;&#x9;self.relationships->forAll(r:Relationship| &#xA;&#x9;&#x9;&#x9;&#x9;self.elements->exists(e:ProcessElement| r.target = e)&#xA;&#x9;&#x9;&#x9;&#x9;and&#xA;&#x9;&#x9;&#x9;&#x9;self.elements->exists(e:ProcessElement| r.source = e))"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" lowerBound="1"
+        upperBound="-1" eType="#//ProcessElement" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="relationships" lowerBound="1"
+        upperBound="-1" eType="#//Relationship" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inspections" upperBound="-1"
+        eType="#//Inspection" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NamedConcept" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Manufacture" eSuperTypes="#//Process">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="handlersOfManufacture"
+        upperBound="-1" eType="#//GlobalErrorHandler" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GlobalErrorHandler" eSuperTypes="#//Process">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="handlerCantBeReferencedByContainingError"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="handlerCantBeReferencedByContainingError" value="&#xA;&#x9;&#x9;&#x9;self.elements->selectByType(ProcessStep).errors->forAll(e:Error| e.globalerrorhandler &lt;> self)"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="error" lowerBound="1" eType="#//Error"
+        eOpposite="#//Error/globalerrorhandler"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="cause" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="handlers" upperBound="-1"
+        eType="#//GlobalErrorHandler" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ProcessElement" abstract="true" eSuperTypes="#//NamedConcept">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inRelations" upperBound="-1"
+        eType="#//Relationship" eOpposite="#//Relationship/target"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outRelations" upperBound="-1"
+        eType="#//Relationship" eOpposite="#//Relationship/source"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Relationship" eSuperTypes="#//NamedConcept">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="condition" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
+        eType="#//ProcessElement" eOpposite="#//ProcessElement/inRelations"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"
+        eType="#//ProcessElement" eOpposite="#//ProcessElement/outRelations"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//ERelationshipType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="notation" eType="#//ENotation"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ProcessStep" eSuperTypes="#//ProcessElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="endStepHasNoOutRelations startStepHasNoInRelations everyNoStartStepHasInFlowRelation everyNoEndStepHasOneOutFlowRelation stepCantBeReferencedByContainingError startHasNoInspection"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="endStepHasNoOutRelations" value="&#xA;&#x9;&#x9;&#x9;self.type = EStepType::END implies self.outRelations->size() = 0"/>
+      <details key="startStepHasNoInRelations" value="&#xA;&#x9;&#x9;&#x9;self.type = EStepType::START implies self.inRelations->size() = 0"/>
+      <details key="everyNoStartStepHasInFlowRelation" value="&#xA;&#x9;&#x9;&#x9;self.type &lt;> EStepType::START implies&#xA;&#x9;&#x9;&#x9;((self.oclAsType(ProcessElement).inRelations->select(r:Relationship| r.type = ERelationshipType::FLOW)->size() > 0)&#xA;&#x9;&#x9;&#x9;or&#xA;&#x9;&#x9;&#x9;(Error.allInstances().errorLink->exists(self)))"/>
+      <details key="everyNoEndStepHasOneOutFlowRelation" value="&#xA;&#x9;&#x9;&#x9;self.type &lt;> EStepType::END implies&#xA;&#x9;&#x9;&#x9;self.oclAsType(ProcessElement).outRelations->select(r:Relationship| r.type = ERelationshipType::FLOW)->size() = 1"/>
+      <details key="stepCantBeReferencedByContainingError" value="&#xA;&#x9;&#x9;&#x9;self.errors->select(e:Error| e.errorLink = self)->size() = 0"/>
+      <details key="startHasNoInspection" value="&#xA;&#x9;&#x9;&#x9;self.type = EStepType::START implies self.monitoring->isEmpty()"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//EStepType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inProducts" upperBound="-1"
+        eType="#//Product" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outProducts" upperBound="-1"
+        eType="#//Product" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="monitoring" upperBound="-1"
+        eType="#//Inspection"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="errors" upperBound="-1"
+        eType="#//Error" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="capability" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="notation" eType="#//ENotation"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Gate" eSuperTypes="#//ProcessElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="gateHasAtLeastOneInRelation gateHasAtLeastOneOutRelation decisionGateHasAtLeastTwoOutRelation onlyOneOutRelationWithNoCondition allRelationsAreFlow"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="gateHasAtLeastOneInRelation" value="&#xA;&#x9;&#x9;&#x9;self.oclAsType(ProcessElement).inRelations->size() > 0"/>
+      <details key="gateHasAtLeastOneOutRelation" value="&#xA;&#x9;&#x9;&#x9;self.oclAsType(ProcessElement).outRelations->size() > 0"/>
+      <details key="decisionGateHasAtLeastTwoOutRelation" value="&#xA;&#x9;&#x9;&#x9;self.type = EGateType::DECISION implies&#xA;&#x9;&#x9;&#x9;self.oclAsType(ProcessElement).outRelations->size() > 1"/>
+      <details key="onlyOneOutRelationWithNoCondition" value="&#xA;&#x9;&#x9;&#x9;self.oclAsType(ProcessElement).outRelations->select(r:Relationship| r.condition->isEmpty())->size()&lt; 2"/>
+      <details key="allRelationsAreFlow" value="&#xA;&#x9;&#x9;&#x9;(self.oclAsType(ProcessElement).inRelations->select(r:Relationship| r.type = ERelationshipType::COLLABORATION)->size() = 0)&#xA;&#x9;&#x9;&#x9;and&#xA;&#x9;&#x9;&#x9;(self.oclAsType(ProcessElement).outRelations->select(r:Relationship| r.type = ERelationshipType::COLLABORATION)->size() = 0)"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//EGateType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="notation" eType="#//ENotation"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Product" eSuperTypes="#//NamedConcept"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Inspection" eSuperTypes="#//NamedConcept">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//EInspectionType"
+        defaultValueLiteral="PRESTEP"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="acceptanceCriteria" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="completionCriteria" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="EGateType">
+    <eLiterals name="DECISION"/>
+    <eLiterals name="PARALLELISM"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ERelationshipType">
+    <eLiterals name="FLOW"/>
+    <eLiterals name="COLLABORATION"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="EStepType">
+    <eLiterals name="REGULAR"/>
+    <eLiterals name="END"/>
+    <eLiterals name="START"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="EInspectionType">
+    <eLiterals name="PRESTEP"/>
+    <eLiterals name="POSTSTEP"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Error" eSuperTypes="#//NamedConcept">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="errorExclusivelyReferencesHandlerOrStep severityOneToTen"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="errorExclusivelyReferencesHandlerOrStep" value="&#xA;&#x9;&#x9;&#x9;self.errorLink->isEmpty() xor self.globalerrorhandler->isEmpty()"/>
+      <details key="severityOneToTen" value="&#xA;&#x9;&#x9;&#x9;self.severityOfError > 0 and self.severityOfError &lt; 11"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="cause" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="effect" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="errorLink" eType="#//ProcessStep"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="globalerrorhandler" eType="#//GlobalErrorHandler"
+        eOpposite="#//GlobalErrorHandler/error"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="severityOfError" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ENotation">
+    <eLiterals name="NONE"/>
+    <eLiterals name="CORRECTION"/>
+  </eClassifiers>
+</ecore:EPackage>
